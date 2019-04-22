@@ -4,7 +4,7 @@ namespace GraphQl.Api
 {
 	public class HelloWorldQuery : ObjectGraphType
 	{
-		public HelloWorldQuery()
+		public HelloWorldQuery(IDataStore dataStore)
 		{
 			Field<StringGraphType>(
 				name: "hello",
@@ -20,9 +20,13 @@ namespace GraphQl.Api
 				resolve: context =>
 				{
 					var barcode = context.GetArgument<string>("barcode");
-					return new DataSource().GetItemByBarcode(barcode);
+					return dataStore.GetItemByBarcode(barcode);
 				}
 			);
+			Field<ListGraphType<ItemType>>(
+				"items",
+				resolve: context => dataStore.GetItems());
+
 		}
 	}
 }

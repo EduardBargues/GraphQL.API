@@ -17,9 +17,11 @@ namespace GraphQl.Api
 			services.AddSingleton<IDocumentWriter, DocumentWriter>();
 			services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
 
-			services.AddSingleton<HelloWorldQuery>();
+			services.AddScoped<HelloWorldQuery>();
 
-			services.AddSingleton<ISchema, HelloWorldSchema>();
+			services.AddScoped<ISchema, HelloWorldSchema>();
+
+			services.AddScoped<IDataStore, DataStore>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

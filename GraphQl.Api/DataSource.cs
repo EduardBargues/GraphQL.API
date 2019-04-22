@@ -1,27 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GraphQl.Api
 {
-	public class DataSource
+	public class DataStore : IDataStore
 	{
-		public IList<Item> Items {
-			get;
-			set;
-		}
+		ConcurrentDictionary<string, Item> itemsById;
 
-		public DataSource()
-		{
-			Items = new List<Item>(){
-			new Item { Barcode= "123", Title="Headphone", SellingPrice=50},
-			new Item { Barcode= "456", Title="Keyboard", SellingPrice= 40},
-			new Item { Barcode= "789", Title="Monitor", SellingPrice= 100}
-		};
-		}
+		public Item GetItemByBarcode(string barcode) 
+			=> itemsById[barcode];
 
-		public Item GetItemByBarcode(string barcode)
-		{
-			return Items.First(i => i.Barcode.Equals(barcode));
-		}
+		public IEnumerable<Item> GetItems() 
+			=> itemsById.Values;
 	}
 }
