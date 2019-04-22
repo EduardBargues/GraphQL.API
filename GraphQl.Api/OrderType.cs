@@ -1,8 +1,6 @@
 ﻿using GraphQL.Types;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQl.Api
 {
@@ -16,6 +14,9 @@ namespace GraphQl.Api
 			Field<CustomerType, Customer>()
 				.Name("Customer")
 				.ResolveAsync(ctx => dataStore.GetCustomerByIdAsync(ctx.Source.CustomerId));
+			Field<ListGraphType<OrderItemType>, IEnumerable<OrderItem>>()
+				.Name("OrderItems")
+				.ResolveAsync(ctx => dataStore.GetOrderItemsAsync(ctx.Source.OrderId));
 		}
 	}
 }

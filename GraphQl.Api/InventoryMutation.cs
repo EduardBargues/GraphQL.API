@@ -28,6 +28,10 @@ namespace GraphQl.Api
 					new QueryArgument<NonNullGraphType<OrderInputType>> { Name = "order" }
 				),
 				resolve: context => dataStore.AddOrderAsync(context.GetArgument<Order>("order")));
+			Field<OrderItemType, OrderItem>()
+				.Name("createOrderItem")
+				.Argument<NonNullGraphType<OrderItemInputType>>("orderitem", "orderitem input")
+				.ResolveAsync(ctx => dataStore.AddOrderItemAsync(ctx.GetArgument<OrderItem>("orderitem")));
 		}
 	}
 }

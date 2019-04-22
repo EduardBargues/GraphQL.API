@@ -16,6 +16,9 @@ namespace GraphQl.Api
 				"customerOrders",
 				arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "customerId" }),
 				resolve: context => dataStore.GetOrdersByCustomerIdAsync(context.GetArgument<string>("customerId")));
+			Field<ListGraphType<OrderItemType>, IEnumerable<OrderItem>>()
+				.Name("OrderItems")
+				.ResolveAsync(ctx => dataStore.GetOrderItemsAsync());
 			Field<CustomerType>(
 				"customer",
 				arguments: new QueryArguments(new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "customerId" }),

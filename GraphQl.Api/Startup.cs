@@ -32,6 +32,9 @@ namespace GraphQl.Api
 
 			services.AddScoped<OrderType>();
 			services.AddScoped<OrderInputType>();
+
+			services.AddScoped<OrderItemType>();
+			services.AddScoped<OrderItemInputType>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

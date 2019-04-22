@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GraphQl.Api
 {
@@ -9,5 +10,6 @@ namespace GraphQl.Api
 		public DateTime CreatedAt { get; set; }
 		public Customer Customer { get; set; }
 		public string CustomerId { get; set; }
+		public IEnumerable<OrderItem> OrderItems { get; set; }
 	}
 }
