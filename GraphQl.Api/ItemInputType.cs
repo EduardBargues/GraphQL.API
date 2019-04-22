@@ -1,5 +1,4 @@
 ﻿using GraphQL.Types;
-using System.Xml.Linq;
 
 namespace GraphQl.Api
 {
@@ -8,10 +7,8 @@ namespace GraphQl.Api
 		public ItemInputType()
 		{
 			Name = "ItemInput";
-			Field<NonNullGraphType<StringGraphType>>("barcode");
 			Field<NonNullGraphType<StringGraphType>>("title");
 			Field<NonNullGraphType<DecimalGraphType>>("sellingPrice");
 		}
 	}
-
 }

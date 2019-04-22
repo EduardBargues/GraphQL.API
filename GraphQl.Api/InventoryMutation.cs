@@ -15,11 +15,19 @@ namespace GraphQl.Api
 				arguments: new QueryArguments(
 					new QueryArgument<NonNullGraphType<ItemInputType>> { Name = "item" }
 				),
-				resolve: context =>
-				{
-					Item item = context.GetArgument<Item>("item");
-					return dataStore.AddItem(item);
-				});
+				resolve: context => dataStore.AddItemAsync(context.GetArgument<Item>("item")));
+			Field<CustomerType>(
+				"createCustomer",
+				arguments: new QueryArguments(
+					new QueryArgument<NonNullGraphType<CustomerInputType>> { Name = "customer" }
+				),
+				resolve: context => dataStore.AddCustomerAsync(context.GetArgument<Customer>("customer")));
+			Field<OrderType>(
+				"createOrder",
+				arguments: new QueryArguments(
+					new QueryArgument<NonNullGraphType<OrderInputType>> { Name = "order" }
+				),
+				resolve: context => dataStore.AddOrderAsync(context.GetArgument<Order>("order")));
 		}
 	}
 }

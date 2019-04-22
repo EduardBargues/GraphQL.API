@@ -7,8 +7,14 @@ namespace GraphQl.Api
 {
 	public interface IDataStore
 	{
-		IEnumerable<Item> GetItems();
-		Item GetItemByBarcode(string barcode);
-		Item AddItem(Item item);
+		Task<IEnumerable<Item>> GetItems();
+		Task<Item> GetItemByBarcode(string barcode);
+		Task<Item> AddItemAsync(Item item);
+		Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(string customerId);
+		Task<Customer> GetCustomerByIdAsync(string customerId);
+		Task<IEnumerable<Order>> GetOrdersAsync();
+		Task<IEnumerable<Customer>> GetCustomersAsync();
+		Task<Order> AddOrderAsync(Order order);
+		Task<Customer> AddCustomerAsync(Customer customer);
 	}
 }
