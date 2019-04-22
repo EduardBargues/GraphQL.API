@@ -29,22 +29,23 @@ namespace GraphQl.Api
 
 		public async Task InvokeAsync(HttpContext httpContext)
 		{
-			if (httpContext.Request.Path.StartsWithSegments("/api/graphql") && string.Equals(httpContext.Request.Method, "POST", StringComparison.OrdinalIgnoreCase))
+			if (httpContext.Request.Path.StartsWithSegments("/api/graphql") && 
+				string.Equals(httpContext.Request.Method, "POST", StringComparison.OrdinalIgnoreCase))
 			{
 				string body;
 				using (var streamReader = new StreamReader(httpContext.Request.Body))
 				{
 					body = await streamReader.ReadToEndAsync();
 
-					var request = JsonConvert.DeserializeObject<GraphQLRequest>(body);
+					GraphQLRequest request = JsonConvert.DeserializeObject<GraphQLRequest>(body);
 
-					var result = await _executor.ExecuteAsync(doc =>
+					ExecutionResult result = await _executor.ExecuteAsync(doc =>
 					{
 						doc.Schema = _schema;
 						doc.Query = request.Query;
+						doc.Inputs = request.Variables.ToInputs();
 					}).ConfigureAwait(false);
-
-					var json = _writer.Write(result);
+					string json = await _writer.WriteToStringAsync(result);
 					await httpContext.Response.WriteAsync(json);
 				}
 			}
