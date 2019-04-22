@@ -9,5 +9,6 @@ namespace GraphQl.Api
 	{
 		IEnumerable<Item> GetItems();
 		Item GetItemByBarcode(string barcode);
+		Item AddItem(Item item);
 	}
 }
